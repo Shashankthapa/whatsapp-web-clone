@@ -1,0 +1,31 @@
+@media (max-width : 1249px){
+    .ChatSection{
+        width: 100vw;
+        height : 99vh;
+        position : static;
+    }
+    .main-container-green-container{
+        position : static;
+        display : none;
+    }   
+}
+
+/* 1200 and above */
+@media (min-width : 1250px){
+    .ChatSection{
+        width : 95%;
+        height : 90%;
+        position : absolute; 
+        top : 5%;
+        left : 2.5%; 
+        z-index : 1;
+        background-color : white;
+    }
+    .main-container-green-container{
+        position: absolute;
+        background-color: #A0C49D;
+        height : 20%;
+        z-index: -1;
+    }
+}
+

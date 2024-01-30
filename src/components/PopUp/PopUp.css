@@ -1,0 +1,10 @@
+.pop-up-form{
+    display : block;
+    position : absolute;
+    top : 0;
+}
+
+.span-item{
+    color : grey;
+    padding-left : 6%;
+}

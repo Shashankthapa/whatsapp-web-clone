@@ -15,13 +15,13 @@ const footer = () => {
   function handleUserMsg(e) {
     e.preventDefault();
     setUserMsg((prev) => {
-      let newState = { ...prev }
-      if (!newState[profileId-1]) {
-        newState[profileId-1] = [];
+      let newState = [ ...prev ] 
+      if (!newState[profileId]) {
+        newState[profileId] = [];
       }
       // newState[profileId].push(msg);
-      newState[profileId-1] = [...newState[profileId-1], msg]
-      setLastMsg((prev) => ({...prev, [profileId-1] : msg}));
+      newState[profileId] = [...newState[profileId], msg]
+      setLastMsg((prev) => ({...prev, [profileId] : msg}));
       return newState;
     });
     

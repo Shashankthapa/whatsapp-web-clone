@@ -12,7 +12,7 @@ const background = () => {
         <div className = "bg-white w-fit p-1">Today's Date</div>
       </div>
       {Object.keys(userMsg).map((val) => {
-        if (profileId-1 == val) {
+        if (profileId == val) {
           return userMsg[val].map((value, index) => {
             return (
               <div className="flex justify-end">

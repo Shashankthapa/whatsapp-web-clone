@@ -28,6 +28,7 @@ const ChatBox = (prop) => {
       }
       return newUserMsgArr;
     });
+    // setUserMsg(userMsg.filter((e) => (e.id-1) != (id-1)));
   }
 
   // {
@@ -45,7 +46,7 @@ const ChatBox = (prop) => {
 
 
   useEffect(() => {
-    console.log(userMsg);
+    console.log("userMsg : " + JSON.stringify(userMsg) + "/n userArray : " + JSON.stringify(userArray));
   }, [userMsg]);
 
   return (
@@ -73,7 +74,7 @@ const ChatBox = (prop) => {
               <div className="w-3/4 grow">
                 <div className="text-base">{val.name}</div>
                 <div className="break-words text-xs">
-                  {lastMsg[val.id-1] === undefined ? val.date : lastMsg[val.id-1]}
+                  {lastMsg[val.id] === undefined ? val.date : lastMsg[val.id]}
                 </div>
               </div>
               <div className="chatbox-delete flex items-center">
@@ -84,7 +85,7 @@ const ChatBox = (prop) => {
                   }}
                   className="text-xs"
                 >
-                {time[val.id-1]}
+                {time[val.id]}
                 </div>
               </div>
             </div>

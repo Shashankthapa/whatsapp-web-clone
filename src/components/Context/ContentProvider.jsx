@@ -11,7 +11,7 @@ export const ContentProvider = (props) => {
     let[msg,setMsg] = useState([]);
     let[searchUser, setSearchUser] = useState();
     let [image, setImage] = useState(null);
-    let [id,setId] = useState(null);
+    let [id,setId] = useState(-1);
     let [profileHead, setProfileHead] = useState({});
     let [chatId, setChatId] = useState(0);
     let [profileId, setProfileId] = useState();

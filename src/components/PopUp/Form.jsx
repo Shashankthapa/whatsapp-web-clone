@@ -1,10 +1,12 @@
 import { MdOutlineCancel } from "react-icons/md";
 import { data } from "../Context/ContentProvider";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { addUser,setLocalStorageUser } from "../utils/storage";
+import { setDateTime } from "../utils/date";
 
 export default function Form(prop) {
 	
-	let {popUp,setPopUp,userArray,setUserArray,id,setId,setImage,image,setTime} = useContext(data);
+	let {popUp,setPopUp,setUserArray,id,setId,setImage,image,setTime} = useContext(data);
   
 	let [name, setName] = useState("");
 	let [date, setDate] = useState("");
@@ -18,23 +20,9 @@ export default function Form(prop) {
   function submitHandler(e){
     e.preventDefault();
     closePopUp(); 
-    setUserArray((userArray) => [...userArray,{id : id, name : name, date : date, image : image, msgs : []}]);
+    addUser(setUserArray,id,date,name,image,setLocalStorageUser);
+    setDateTime(setTime,id);
   }
-
-  
-  function DateTime() {
-    let d = new Date();
-
-    let zero = d.getMinutes() < 10 ? '0': '' 
-
-    let time =
-      d.getHours() > 12
-        ? `${d.getHours() - 12}:${zero}${d.getMinutes()}pm`
-        : `${d.getHours()}:${zero}${d.getMinutes()}am`;
-
-    return time;
-  }
-
 
   return (
     <form
@@ -89,9 +77,6 @@ export default function Form(prop) {
             onClick={(e) => {
               e.stopPropagation(); 
               setId(prevId => prevId + 1);
-              setTime((prev) => 
-                [...prev,DateTime()]              
-              )
             }}
 					/>
         </div>

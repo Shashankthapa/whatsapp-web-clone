@@ -9,12 +9,12 @@ export const ContentProvider = (props) => {
     let [user,setUser] = useState({name : "Shashank", date : "24-10-2024", image : ""}); 
     let[userMsg, setUserMsg] = useState([]); 
     let[msg,setMsg] = useState([]);
-    let[searchUser, setSearchUser] = useState();
+    let[searchUser, setSearchUser] = useState("");
     let [image, setImage] = useState(null);
     let [id,setId] = useState(-1);
     let [profileHead, setProfileHead] = useState({});
     let [chatId, setChatId] = useState(0);
-    let [profileId, setProfileId] = useState();
+    let [profileId, setProfileId] = useState(null);
     let [lastMsg, setLastMsg] = useState([]);
     let [time, setTime] = useState([]);
 

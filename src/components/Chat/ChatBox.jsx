@@ -28,30 +28,17 @@ const ChatBox = (prop) => {
       }
       return newUserMsgArr;
     });
-    // setUserMsg(userMsg.filter((e) => (e.id-1) != (id-1)));
   }
 
-  // {
-  //   profileId == val.id
-  //   ? userMsg[profileId] == undefined
-  //     ? [val.date]
-  //     : userMsg[profileId][userMsg[profileId].length - 1]
-  //   : null
-  // }
-
-  function showTodaysDate(){
+  function showTodaysDate() {
     let date = new Date();
     return date.getDate();
   }
 
-
-  useEffect(() => {
-    console.log("userMsg : " + JSON.stringify(userMsg) + "/n userArray : " + JSON.stringify(userArray));
-  }, [userMsg]);
-
   return (
     <div>
-      {userArray.map((val) => {
+      {/* {console.log(localStorage)} */}
+      {localStorage.length > 0 ? JSON.parse(localStorage.getItem('userdata')).map((val) => {
         return (
           <div
             className=""
@@ -74,7 +61,8 @@ const ChatBox = (prop) => {
               <div className="w-3/4 grow">
                 <div className="text-base">{val.name}</div>
                 <div className="break-words text-xs">
-                  {lastMsg[val.id] === undefined ? val.date : lastMsg[val.id]}
+                  {/* {console.log(JSON.parse(localStorage.getItem('lastmsg')))} */}
+                  {JSON.parse(localStorage.getItem('lastmsg')) == undefined ? "" : JSON.parse(localStorage.getItem('lastmsg'))[val.id]}
                 </div>
               </div>
               <div className="chatbox-delete flex items-center">
@@ -85,13 +73,13 @@ const ChatBox = (prop) => {
                   }}
                   className="text-xs"
                 >
-                {time[val.id]}
+                  {JSON.parse(localStorage.getItem('time'))[val.id]}
                 </div>
               </div>
             </div>
           </div>
-        );
-      })}
+        )
+      }) : ""}
     </div>
   );
 };

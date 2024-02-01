@@ -1,35 +1,27 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useRef } from "react";
 import { data } from "../Context/ContentProvider";
+import { setUserMsgs } from "../utils/storage";
 
-const footer = () => {
+export default function footer(){
   let {
-    userMsg,
     setUserMsg,
     msg,
     setMsg,
     profileId,
-    lastMsg,
-    setLastMsg
+    setLastMsg,
+    lastMsg
   } = useContext(data);
 
   function handleUserMsg(e) {
     e.preventDefault();
-    setUserMsg((prev) => {
-      let newState = [ ...prev ] 
-      if (!newState[profileId]) {
-        newState[profileId] = [];
-      }
-      // newState[profileId].push(msg);
-      newState[profileId] = [...newState[profileId], msg]
-      setLastMsg((prev) => ({...prev, [profileId] : msg}));
-      return newState;
-    });
-    
+    setUserMsgs(setUserMsg,profileId,setLastMsg,msg,lastMsg);
   }
 
-  useEffect(() => {
-    console.log(lastMsg);
-  }, [lastMsg]);
+  const handleSubmit = () => {
+    ref.current.value = '';
+  };
+
+  const ref = useRef(null);
 
   return (
     <footer className="flex items-center h-14 bg-slate-100">
@@ -76,13 +68,15 @@ const footer = () => {
         <form
           onSubmit={(e) => {
             handleUserMsg(e);
+            handleSubmit(e);
           }}
         >
           <input
             className="w-full h-full focus:outline-none placeholder:p-0.5 p-2 rounded-sm"
             type="text"
             placeholder="Enter some text"
-            onChange={(e) => setMsg(e.target.value)}
+            ref={ref}
+            onChange={(e) => {setMsg(e.target.value);}}
           ></input>
         </form>
       </div>
@@ -109,4 +103,3 @@ const footer = () => {
   );
 };
 
-export default footer;

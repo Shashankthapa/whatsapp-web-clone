@@ -16,9 +16,9 @@ const background = () => {
         }
       }
     };
-
     fetchAndDisplayMessages();
  }, [profileId,userMsg]);
+
 
  return (
     <div className={`${Styles.backgroundContainer} relative flex flex-col justify-end`}>
@@ -29,7 +29,10 @@ const background = () => {
       {messages != null ? messages.map((val, index) => (
         <div className="flex justify-end" key={index}>
           <div>
-            <div className={`${Styles.fadeInMain} bg-green-400 w-fit p-1 m-2`}>{val}</div>
+            <div className={`${Styles.fadeInMain} bg-green-400 w-fit p-1 m-2`}>
+              {val[0]}
+            <span className = "px-2" style = {{fontSize : "10px"}}>{val[1]}</span>
+            </div>        
           </div>
         </div>
       )) : ""}

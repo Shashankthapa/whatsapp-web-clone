@@ -10,23 +10,28 @@ export const setLocalStorageLastMsg = (lastMsg) => {
     localStorage.setItem('lastmsg', JSON.stringify(lastMsg));   
 }
 
-export const setUserMsgs = (setUserMsg,id,setLastMsg,msg) => {
-    setUserMsg((prev) => {
-        let newState = [ ...prev ] 
-        if (!newState[id]) {
-          newState[id] = [];
-        }
-        newState[id] = [...newState[id], msg]
-        setLocalStorageMsg(newState);
-        // setLastMsg((prev) => [{...prev, [id] : msg}]);
-        setLastMsg((prev) => {
-            let prevMsg = [...prev];
-            prevMsg[id] = msg; 
-            setLocalStorageLastMsg(prevMsg);
-            return prevMsg;
-        })
-        return newState;
-      });
+export const getLocalStorageMsg = () => {
+    const storedData = localStorage.getItem('usermsg');
+    return storedData ? JSON.parse(storedData) : [];
+};
+
+export const setUserMsgs = (setUserMsg,id,setLastMsg,msg,tMsg) => {
+        setUserMsg(getLocalStorageMsg());
+        setUserMsg((prev) => {
+            let newState = [ ...prev ] 
+            if (!newState[id]) {
+              newState[id] = [];
+            }
+            newState[id] = [...newState[id], [msg,tMsg]] 
+            setLocalStorageMsg(newState);
+            setLastMsg((prev) => {
+                let prevMsg = [...prev];
+                prevMsg[id] = msg; 
+                setLocalStorageLastMsg(prevMsg);
+                return prevMsg;
+            })
+            return newState;
+          });
 }
 
 export function addUser(setUserArray, id, date, name, image, setLocalStorageUser) {

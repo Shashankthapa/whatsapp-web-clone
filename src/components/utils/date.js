@@ -15,7 +15,6 @@ export function DateTime() {
     setTime((prev) => {
         let time = [...prev]
         time[id] = DateTime();
-        console.log(time, "profile id : ", id);
         localStorage.setItem('time',JSON.stringify(time));
         return time;
       }            

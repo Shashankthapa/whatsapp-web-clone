@@ -15,8 +15,14 @@ export const getLocalStorageMsg = () => {
     return storedData ? JSON.parse(storedData) : [];
 };
 
+const getLastMsg = () => {
+    const storedLastMsg = localStorage.getItem('lastmsg');
+    return storedLastMsg ? JSON.parse(storedLastMsg) : [];
+}
+
 export const setUserMsgs = (setUserMsg,id,setLastMsg,msg,tMsg) => {
         setUserMsg(getLocalStorageMsg());
+        setLastMsg(getLastMsg());
         setUserMsg((prev) => {
             let newState = [ ...prev ] 
             if (!newState[id]) {
@@ -34,7 +40,14 @@ export const setUserMsgs = (setUserMsg,id,setLastMsg,msg,tMsg) => {
           });
 }
 
+export function isUserLocal(){
+    const userdata = localStorage.getItem('userdata');
+    return userdata ? JSON.parse(userdata) : [];
+}
+
+
 export function addUser(setUserArray, id, date, name, image, setLocalStorageUser) {
+    setUserArray(isUserLocal());
     setUserArray((prevUserArray) => {
         const newUserArray = [...prevUserArray, { id: id, name: name, date: date, image: image }];
         setLocalStorageUser(newUserArray);

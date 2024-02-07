@@ -24,6 +24,59 @@ export default function Form(prop) {
     setDateTime(setTime,id);
   }
 
+  function setImageOptimization(file, maxWidth){
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > maxWidth) {
+            height *= maxWidth / width;
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxWidth) {
+            width *= maxWidth / height;
+            height = maxWidth;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL());
+      };
+      img.onerror = reject;
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
+  
+  function handleFileChange(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+      reader.onloadend = async () => {
+          // Save the base64 data URL to local storage
+          try{
+          let imageOpt = await setImageOptimization(file, 200);
+          setImage(imageOpt);
+          } catch(err){
+            console.log("There is some error in setting the image", err);
+          }
+      };
+
+      if (file) {
+        reader.readAsArrayBuffer(file);
+      } else {
+        setImage(null);
+      }
+}
+
   return (
     <form
       className={`${prop.className} mx-auto mt-10 w-2/5 bg-transparent shadow-md rounded px-8 pb-8 pt-6 mb-4 absolute 
@@ -64,7 +117,7 @@ export default function Form(prop) {
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           type="file"
           ref = {inputRef}
-          onChange={(e) => {setImage(URL.createObjectURL(e.target.files[0]))}}
+          onChange={(e) => {handleFileChange(e)}}
         />
       </div>
 
@@ -76,7 +129,7 @@ export default function Form(prop) {
 						value = "Submit"
             onClick={(e) => {
               e.stopPropagation(); 
-              setId(prevId => prevId + 1);
+              setId(prev => prev + 1);
             }}
 					/>
         </div>

@@ -2,6 +2,8 @@ import { createContext, useState } from "react";
 
 export const data = createContext(null);
 
+let userLocal = JSON.parse(localStorage.getItem('userdata'))
+
 export const ContentProvider = (props) => {
 
     let [popUp, setPopUp] = useState(false);
@@ -11,7 +13,7 @@ export const ContentProvider = (props) => {
     let[msg,setMsg] = useState([]);
     let[searchUser, setSearchUser] = useState("");
     let [image, setImage] = useState(null);
-    let [id,setId] = useState(-1);
+    let [id,setId] = useState(userLocal ? userLocal.length-1 : -1);
     let [profileHead, setProfileHead] = useState({});
     let [chatId, setChatId] = useState(0);
     let [profileId, setProfileId] = useState(null);

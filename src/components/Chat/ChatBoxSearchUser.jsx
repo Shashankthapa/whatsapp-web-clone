@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { data } from "../Context/ContentProvider";
+import DefaultImage from "../../assets/shahrukh.jpg";
 
 export default function ChatBoxSearchUser(props) {
 
@@ -26,13 +27,13 @@ export default function ChatBoxSearchUser(props) {
         return date.getDate();
     }
 
-    function setProfileIdFunc(){
-        setProfileId(val.id);
+    function setProfileIdFunc(id) {
+        setProfileId(id);
     }
 
     useState(() => {
         setProfileIdFunc();
-    },[setProfileIdFunc])
+    }, [setProfileIdFunc])
 
     return (
         <>
@@ -42,14 +43,14 @@ export default function ChatBoxSearchUser(props) {
                 key={val.id}
                 onClick={() => {
                     setProfileHead(val);
-                    setProfileIdFunc();
+                    setProfileIdFunc(val.id);
                     showTodaysDate();
                 }}
             >
                 <div className="p-2">
                     <img
                         className="w-10 rounded-full"
-                        src={val.image == "" ? "" : val.image}
+                        src={(val.image == "" || val.image == null) ? DefaultImage : val.image}
                         alt="demo-profile"
                     />
                 </div>
@@ -57,7 +58,7 @@ export default function ChatBoxSearchUser(props) {
                     <div className="w-3/4 grow">
                         <div className="text-base">{val.name}</div>
                         <div className="break-words text-xs">
-                               {/* {console.log(JSON.parse(localStorage.getItem('lastmsg')))} */}
+                            {/* {console.log(JSON.parse(localStorage.getItem('lastmsg')))} */}
                             {JSON.parse(localStorage.getItem('lastmsg')) == undefined ? "" : JSON.parse(localStorage.getItem('lastmsg'))[val.id]}
                         </div>
                     </div>

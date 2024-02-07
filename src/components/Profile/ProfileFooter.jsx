@@ -34,9 +34,9 @@ export default function footer(){
 
   function timeMsgs(){
     let date = new Date();
-    date.getHours > 12 ? 
+    date.getHours() > 12 ? 
       setTimeMsg(`${date.getHours() - 12} : ${date.getMinutes()} pm`) :
-      setTimeMsg(`${date.getHours() - 12} : ${date.getMinutes()} am`)
+      setTimeMsg(`${date.getHours()} : ${date.getMinutes()} am`)
   }
 
   return (
